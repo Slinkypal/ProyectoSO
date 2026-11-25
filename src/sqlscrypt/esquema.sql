@@ -1,0 +1,11 @@
+DROP DATABASE IF EXISTS so_g1_banco;
+CREATE DATABASE so_g1_banco CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+CREATE USER IF NOT EXISTS 'app_g1'@'localhost' IDENTIFIED BY 'ClaveSeguraG1_2026!';
+GRANT ALL PRIVILEGES ON so_g1_banco.* TO 'app_g1'@'localhost';
+FLUSH PRIVILEGES;
+USE so_g1_banco;
+CREATE TABLE cuenta (id INT AUTO_INCREMENT PRIMARY KEY, titular VARCHAR(100) NOT NULL, saldo INT NOT NULL);
+CREATE TABLE deposito (id INT AUTO_INCREMENT PRIMARY KEY, persona VARCHAR(50) NOT NULL, cuenta_id INT NOT NULL, valor_leido INT NOT NULL, momento DATETIME(6) NOT NULL, FOREIGN KEY (cuenta_id) REFERENCES cuenta(id));
+CREATE TABLE atencion (id INT AUTO_INCREMENT PRIMARY KEY, persona VARCHAR(50) NOT NULL, inicio DATETIME(6) NOT NULL, fin DATETIME(6) NOT NULL);
+CREATE TABLE transaccion (num INT PRIMARY KEY, cajero VARCHAR(50) NOT NULL, trabajador VARCHAR(50) NOT NULL, en_cola INT NOT NULL, guardado DATETIME(6) NOT NULL);
+INSERT INTO cuenta (id, titular, saldo) VALUES (1, 'Cuenta Central Grupo 1', 100);
